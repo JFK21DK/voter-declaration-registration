@@ -1,0 +1,31 @@
+<h1>Støt med en vælgererklæring</h1>
+
+<p>Med en vælgererklæring siger du ja til, at JFK21 må stille op til folketingsvalg.</p>
+
+<div>
+  {{#if errors }}
+  <ul>
+    {{#each errors}}
+    <li>{{msg}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+
+<form action="/declare" method="POST">
+  <div>
+    <input type="text" name="firstName" placeholder="Fornavn" value="{{firstName}}">
+  </div>
+  <div>
+    <input type="text" name="lastName" placeholder="Efternavn" value="{{lastName}}">
+  </div>
+  <div>
+    <input type="email" name="email" placeholder="Email" value="{{email}}" required>
+  </div>
+  <p>
+    Læs om <a href="#">privatlivspolitikken</a>.
+  </p>
+  <div>
+    <button type="submit">Skriv under</button>
+  </div>
+</form>
