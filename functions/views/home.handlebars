@@ -1,31 +1,51 @@
-<h1>Støt med en vælgererklæring</h1>
+<div class="card my-4">
+  <div class="card-body">
+    <h1 style="font-size: 1.4rem">Støt med en vælgererklæring</h1>
 
-<p>Med en vælgererklæring siger du ja til, at JFK21 må stille op til folketingsvalg.</p>
+    <p class="lead">Med en vælgererklæring siger du ja til, at JFK21 må stille op til folketingsvalg.</p>
 
-<div>
-  {{#if errors }}
-  <ul>
-    {{#each errors}}
-    <li>{{msg}}</li>
-    {{/each}}
-  </ul>
-  {{/if}}
+    <div class="my-3">
+      {{#if errors }}
+        {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+        {{/each}}
+      {{/if}}
+    </div>
+
+    <form action="/declare" method="POST">
+      {{!-- First name --}}
+      <div class="form-group row">
+        <label for="firstName" class="col-6 col-xl-1 col-md-2 col-sm-2 col-form-label">Fornavn</label>
+        <div class="col-12 col-xl-11 col-md-10 col-sm-10">
+          <input id="firstName" class="form-control" type="text" name="firstName" placeholder="Indtast dit fornavn" value="{{firstName}}">
+        </div>
+      </div>
+      {{!-- Last name --}}
+      <div class="form-group row">
+        <label for="lastName" class="col-6 col-xl-1 col-md-2 col-sm-2 col-form-label">Efternavn</label>
+        <div class="col-12 col-xl-11 col-md-10 col-sm-10">
+          <input id="lastName" class="form-control" type="text" name="lastName" placeholder="Indtast dit efternavn" value="{{lastName}}">
+        </div>
+      </div>
+      {{!-- Email --}}
+      <div class="form-group row">
+        <label for="email" class="col-6 col-xl-1 col-md-2 col-sm-2 col-form-label">E-mail</label>
+        <div class="col-12 col-xl-11 col-md-10 col-sm-10">
+          <input id="email" class="form-control" type="email" name="email" placeholder="Indtast din E-mail adresse" value="{{email}}"
+            required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-12 col-xl-11 offset-xl-1 col-sm-10 offset-sm-2">
+          <button type="submit" class="btn btn-primary">Skriv under</button>
+        </div>
+      </div>
+    </form>
+
+    <p class="text-muted">
+      Alle dine oplysninger opbevares sikret hos os og jvf. GDPR.
+      Dine oplysningerne bruges kun i forbindelse med vælgererklæring og vil blive sletted helt derefter.
+    </p>
+  </div>
 </div>
-
-<form action="/declare" method="POST">
-  <div>
-    <input type="text" name="firstName" placeholder="Fornavn" value="{{firstName}}">
-  </div>
-  <div>
-    <input type="text" name="lastName" placeholder="Efternavn" value="{{lastName}}">
-  </div>
-  <div>
-    <input type="email" name="email" placeholder="Email" value="{{email}}" required>
-  </div>
-  <p>
-    Læs om <a href="#">privatlivspolitikken</a>.
-  </p>
-  <div>
-    <button type="submit">Skriv under</button>
-  </div>
-</form>

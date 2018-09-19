@@ -1,9 +1,15 @@
-{{#if verified}}
-<h1>Email Godkendt</h1>
+<div class="my-4">
+  {{#if verified}}
+  <div class="alert alert-success">
+    <h4 class="alert-heading">Email Godkendt</h4>
 
-<p>Din email er nu verificeret. Tak for støtten.</p>
-{{else}}
-<h1>Ugyldig Kald!</h1>
+    <p class="lead">Din email er nu verificeret. Tak for støtten.</p>
+  </div>
+  {{else}}
+  <div class="alert alert-danger">
+    <h4 class="alert-heading">Ugyldig Kald!</h4>
 
-<p>Det var ikke muligt at verificer din email!</p>
-{{/if}}
+    <p class="lead">Det var ikke muligt at verificer din email!</p>
+  </div>
+  {{/if}}
+</div>
