@@ -6,6 +6,7 @@ const firebase = admin.initializeApp();
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: false });
 
+import * as rp from 'request-promise-native';
 import * as express from 'express';
 import * as path from 'path';
 import * as exphb from 'express-handlebars';
@@ -177,4 +178,38 @@ export const aggregateVerifications = functions.firestore
           }
         });
     });
+  });
+
+/**
+ * Export verified email to eMailPlatform using their API
+ */
+export const exportVerifiedEmail = functions.firestore
+  .document('declarations/{declarationId}')
+  .onUpdate((change, ctx) => {
+    console.log('Exporting email..', change, ctx);
+
+    // Only export if the email is actually verified
+    const beforeData = change.before.data();
+    const afterData = change.after.data();
+    if (!(beforeData.verified === false && afterData.verified === true)) {
+      return Promise.resolve();
+    }
+
+    const options = {
+      method: 'POST',
+      uri: 'https://api.mailmailmail.net/v1.1/Subscribers/AddSubscriberToList',
+      headers: {
+        'Accept': 'application/json; charset=utf-8',
+        'ApiUsername': functions.config().emailplatform.username,
+        'ApiToken': functions.config().emailplatform.token,
+        'Content-Type': 'application/json'
+      },
+      body: {
+        listid: parseInt(functions.config().emailplatform.listid),
+        emailaddress: afterData.email
+      },
+      json: true
+    };
+
+    return rp(options);
   });

@@ -1,5 +1,10 @@
 {
-    "sendgrid": {
-        "key": "SENDGRID_API_KEY"
-    }
+  "sendgrid": {
+    "key": "SENDGRID_API_KEY"
+  },
+  "emailplatform": {
+    "username": "USERNAME",
+    "listid": "00000",
+    "token": "TOKEN"
+  }
 }
