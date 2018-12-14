@@ -1,0 +1,16 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Node.js scripts to manage basic tasks",
+  "main": "index.js",
+  "repository": "https://github.com/JFK21DK/voter-declaration-registration",
+  "author": "Ismail Faizi",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "vdr:export": "node export.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^6.4.0"
+  }
+}
