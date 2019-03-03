@@ -181,7 +181,7 @@ export const aggregateVerifications = functions.firestore
   });
 
 /**
- * Export verified email to eMailPlatform using their API
+ * Export verified email to MailChimp using their API
  */
 export const exportVerifiedEmail = functions.firestore
   .document('declarations/{declarationId}')
@@ -195,18 +195,21 @@ export const exportVerifiedEmail = functions.firestore
       return Promise.resolve();
     }
 
+    const listId = functions.config().mailchimp.listid;
+    const apiKey = functions.config().mailchimp.apikey;
+
+    const basicAuth = Buffer.from(`vdr:${apiKey}`).toString('base64');
     const options = {
       method: 'POST',
-      uri: 'https://api.mailmailmail.net/v1.1/Subscribers/AddSubscriberToList',
+      uri: `https://us14.api.mailchimp.com/3.0/lists/${listId}/members`,
       headers: {
         'Accept': 'application/json; charset=utf-8',
-        'ApiUsername': functions.config().emailplatform.username,
-        'ApiToken': functions.config().emailplatform.token,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${basicAuth}`
       },
       body: {
-        listid: parseInt(functions.config().emailplatform.listid),
-        emailaddress: afterData.email
+        email_address: afterData.email,
+        status: 'subscribed'
       },
       json: true
     };
