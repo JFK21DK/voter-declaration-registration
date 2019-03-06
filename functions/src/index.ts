@@ -186,7 +186,7 @@ export const aggregateVerifications = functions.firestore
 export const exportVerifiedEmail = functions.firestore
   .document('declarations/{declarationId}')
   .onUpdate((change, ctx) => {
-    console.log('Exporting email..', change, ctx);
+    console.log('Exporting email..', change.after.data(), ctx);
 
     // Only export if the email is actually verified
     const beforeData = change.before.data();
