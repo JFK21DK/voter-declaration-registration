@@ -4,7 +4,7 @@ export class Mailer {
   private readonly fromEmail: string = 'noreply@jfk21.dk';
   private client: any;
 
-  constructor(private apiKey: string) {
+  constructor(apiKey: string) {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(apiKey);
     sgMail.setSubstitutionWrappers('[', ']');

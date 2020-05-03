@@ -10,7 +10,7 @@ import * as rp from 'request-promise-native';
 import * as express from 'express';
 import * as path from 'path';
 import * as exphb from 'express-handlebars';
-import { check, validationResult } from 'express-validator/check';
+import { check, validationResult } from 'express-validator';
 
 import { Mailer } from './mailer';
 const mailer = new Mailer(functions.config().sendgrid.key);
@@ -83,6 +83,7 @@ app.get('/verify/:token', async (req, res) => {
   const declarationRef = db.collection('declarations').doc(req.params.token);
   const declaration = await declarationRef.get();
   if (!declaration.exists) {
+    // tslint:disable-next-line: no-void-expression
     return res.render('verify');
   }
 
@@ -90,6 +91,7 @@ app.get('/verify/:token', async (req, res) => {
 
   // Only verify if not already verified
   if (data.verified === true) {
+    // tslint:disable-next-line: no-void-expression
     return res.render('verify', { verified: true });
   }
 
@@ -107,7 +109,7 @@ app.get('/verify/:token', async (req, res) => {
     });
 });
 
-export const vdr = functions.https.onRequest(app);
+export const vdr = functions.https.onRequest((req: any, res: any) => app(req, res));
 
 /**
  * Send a verification email upon creation of a declaration
