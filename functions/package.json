@@ -15,8 +15,8 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-validator": "^5.3.0",
-    "firebase-admin": "~6.0.0",
-    "firebase-functions": "^2.0.3",
+    "firebase-admin": "^8.11.0",
+    "firebase-functions": "^3.6.1",
     "handlebars": "^4.7.6",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"
