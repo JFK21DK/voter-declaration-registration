@@ -1,8 +1,8 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "tslint --project tsconfig.json",
-    "build": "tsc",
+    "lint": "./node_modules/.bin/tslint -p tslint.json",
+    "build": "tslint -p tslint.json && tsc",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
@@ -12,20 +12,20 @@
   "main": "lib/index.js",
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "express-validator": "^5.3.0",
-    "firebase-admin": "~6.0.0",
-    "firebase-functions": "^2.0.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-validator": "^6.4.1",
+    "firebase-admin": "^8.11.0",
+    "firebase-functions": "^3.6.1",
     "handlebars": "^4.7.6",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
-    "@types/express": "^4.16.0",
-    "@types/node": "^10.9.4",
-    "tslint": "~5.8.0",
-    "typescript": "~2.8.3"
+    "@types/express": "^4.17.6",
+    "@types/node": "^10.17.21",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
   },
   "private": true,
   "engines": {
