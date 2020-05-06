@@ -11,6 +11,6 @@
     "vdr:export": "node export.js"
   },
   "dependencies": {
-    "firebase-admin": "^6.4.0"
+    "firebase-admin": "^8.11.0"
   }
 }
