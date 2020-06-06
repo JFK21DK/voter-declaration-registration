@@ -3,6 +3,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/tslint -p tslint.json",
     "build": "tslint -p tslint.json && tsc",
+    "build:watch": "tsc --watch",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",

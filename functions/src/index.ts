@@ -25,6 +25,9 @@ app.set('views', path.join(__dirname, '/../views'));
 // Setup body parsing
 app.use(express.urlencoded({ extended: false }));
 
+// Setup static assets serving
+app.use('/assets', express.static(path.join(__dirname, '/../assets')));
+
 /**
  * Main Route
  */
@@ -107,6 +110,44 @@ app.get('/verify/:token', async (req, res) => {
       console.error('Email verification failed:', error);
       res.render('verify');
     });
+});
+
+app.get('/stats', async (req, res) => {
+  let declarations = 0;
+  let verifications = 0;
+  const records = await db.collection('declarations').get().then(docs => {
+    declarations = docs.size;
+
+    const result = [];
+    docs.forEach(doc => {
+      const declaration = doc.data();
+      verifications = declaration.verified ? verifications + 1 : verifications;
+
+      result.push({
+        createdAt: declaration.createdAt,
+        verified: declaration.verified,
+      });
+    });
+
+    return result.sort((a, b) => (a.createdAt - b.createdAt));
+  });
+
+  const data = {
+    totals: {
+      declarations,
+      verifications
+    },
+    records,
+  };
+
+  const vdrData = `
+  <script type="text/javascript">
+    window['vdrData'] = ${JSON.stringify(data)};
+  </script>`;
+
+  // Let it be cached for 24 hours both on client as well as CDN
+  res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+  res.render('stats', { vdrData });
 });
 
 export const vdr = functions.https.onRequest((req: any, res: any) => app(req, res));
