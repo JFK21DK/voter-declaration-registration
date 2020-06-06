@@ -102,7 +102,7 @@
 
   function renderMonthlyChart(labels, data, ctx) {
     const dataset = {
-      label: 'Måndelig udvikling',
+      label: 'Månedlig udvikling',
       data: data,
       borderColor: 'rgba(0, 123, 255, 1)',
       backgroundColor: 'rgba(0, 123, 255, 0.2)',
