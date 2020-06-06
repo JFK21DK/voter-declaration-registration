@@ -32,7 +32,7 @@ app.use('/assets', express.static(path.join(__dirname, '/../assets')));
  * Main Route
  */
 app.get('/', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+  res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
   res.render('home');
 });
 
